@@ -1,10 +1,12 @@
 package lp2.lab06;
 
+import java.util.Locale;
+
 public class Jogo {
 
 	private String nome;
 	private double preco;
-	private double maiorScore;
+	private int maiorScore;
 	private int vezesJogado;
 	private int vezesZerado;
 
@@ -16,7 +18,7 @@ public class Jogo {
 		vezesZerado = 0;
 	}
 
-	public void registraJogada(int score, boolean jogoZerado) {
+	public boolean registraJogada(int score, boolean jogoZerado) {
 		vezesJogado += 1;
 
 		if (score > maiorScore) {
@@ -26,6 +28,8 @@ public class Jogo {
 		if (jogoZerado) {
 			vezesZerado += 1;
 		}
+
+		return true;
 	}
 
 	public String getNome() {
@@ -44,7 +48,7 @@ public class Jogo {
 		this.preco = preco;
 	}
 
-	public double getMaiorScore() {
+	public int getMaiorScore() {
 		return maiorScore;
 	}
 
@@ -61,9 +65,6 @@ public class Jogo {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(preco);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -72,16 +73,15 @@ public class Jogo {
 		if (!(objeto instanceof Jogo)) {
 			return false;
 		}
-
 		Jogo jogo = (Jogo) objeto;
-
-		return this.getNome().equalsIgnoreCase(jogo.getNome()) && this.getPreco() == jogo.getPreco();
+		return this.getNome().equalsIgnoreCase(jogo.getNome());
 	}
 
 	@Override
 	public String toString() {
-		return "Jogo [nome=" + nome + ", preco=" + preco + ", maiorScore=" + maiorScore + ", vezesJogado=" + vezesJogado
-				+ ", vezesZerado=" + vezesZerado + "]";
+		return String.format(Locale.US, "Nome: %s\nPreco: %.2f\nMaior score: %d\nVezes jogado: %d\nVezes zerado: %d",
+				nome, preco, maiorScore, vezesJogado, vezesZerado);
+
 	}
 
 }
