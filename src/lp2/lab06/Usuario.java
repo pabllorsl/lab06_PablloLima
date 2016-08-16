@@ -19,6 +19,7 @@ public class Usuario {
 	public boolean compraJogo(Jogo jogo) {
 		if (this.getSaldo() >= jogo.getPreco()) {
 			this.setSaldo(this.getSaldo() - jogo.getPreco());
+			jogosComprados.add(jogo);
 			return true;
 		} else {
 			return false;
