@@ -1,6 +1,6 @@
 package lp2.lab06;
 
-import java.util.Locale;
+import lp2.lab06.exceptions.VerificadorExceptions;
 
 public class Jogo {
 
@@ -10,7 +10,9 @@ public class Jogo {
 	private int vezesJogado;
 	private int vezesZerado;
 
-	public Jogo(String nome, double preco) {
+	public Jogo(String nome, double preco) throws Exception {
+		VerificadorExceptions.verificaStringNulaVazia(nome, "Nome");
+		VerificadorExceptions.verificaDoubleNegativo(preco, "Preco");
 		this.nome = nome;
 		this.preco = preco;
 		maiorScore = 0;
@@ -79,9 +81,8 @@ public class Jogo {
 
 	@Override
 	public String toString() {
-		return String.format(Locale.US, "Nome: %s\nPreco: %.2f\nMaior score: %d\nVezes jogado: %d\nVezes zerado: %d",
-				nome, preco, maiorScore, vezesJogado, vezesZerado);
-
+		return "Jogo [nome=" + nome + ", preco=" + preco + ", maiorScore=" + maiorScore + ", vezesJogado=" + vezesJogado
+				+ ", vezesZerado=" + vezesZerado + "]";
 	}
 
 }

@@ -2,33 +2,46 @@ package lp2.lab06;
 
 import java.util.HashSet;
 
+import lp2.lab06.exceptions.VerificadorExceptions;
+
 public class Usuario {
 
 	private String nome;
 	private String login;
 	private HashSet<Jogo> jogosComprados;
 	private double saldo;
+	protected double desconto;
 
-	public Usuario(String nome, String login) {
+	public Usuario(String nome, String login) throws Exception {
+		VerificadorExceptions.verificaStringNulaVazia(nome, "Nome");
+		VerificadorExceptions.verificaStringNulaVazia(login, "Login");
 		this.nome = nome;
 		this.login = login;
 		this.jogosComprados = new HashSet<Jogo>();
 		this.saldo = 0.0;
+		this.desconto = 0.0;
 	}
 
-	public boolean compraJogo(Jogo jogo) {
-		if (this.getSaldo() >= jogo.getPreco()) {
-			this.setSaldo(this.getSaldo() - jogo.getPreco());
-			jogosComprados.add(jogo);
-			return true;
-		} else {
-			return false;
-		}
+	public boolean compraJogo(Jogo jogo) throws Exception {
+		VerificadorExceptions.verificaSaldoInsuficiente(this.getSaldo(), jogo.getPreco());
+		atualizaSaldo(this.getSaldo(), jogo.getPreco());
+		adicionaJogo(jogo);
+		return true;
 	}
 
-	public boolean adicionaDinheiro(double valor) {
+	public boolean adicionaDinheiro(double valor) throws Exception {
+		VerificadorExceptions.verificaDoubleInvalido(valor, "Valor");
 		this.setSaldo(this.getSaldo() + valor);
 		return true;
+	}
+
+	public boolean adicionaJogo(Jogo jogo) {
+		jogosComprados.add(jogo);
+		return true;
+	}
+
+	public void atualizaSaldo(double saldo, double precoJogo) {
+		this.setSaldo(saldo - (precoJogo - (precoJogo * this.desconto)));
 	}
 
 	public String getNome() {
@@ -57,6 +70,14 @@ public class Usuario {
 
 	public void setSaldo(double valor) {
 		this.saldo = valor;
+	}
+
+	public double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(double desconto) {
+		this.desconto = desconto;
 	}
 
 	@Override
