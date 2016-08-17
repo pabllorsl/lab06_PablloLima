@@ -16,65 +16,76 @@ public class JogoTest {
 
 	@Test
 	public void testConstrutor() {
-		testGetNome();
-		testGetPreco();
-		testGetMaiorScore();
-		testGetVezesJogado();
-		testGetVezesZerado();
+		try {
+			assertEquals("Overwatch", overwatch.getNome());
+			assertEquals(159.99, overwatch.getPreco(), 0.05);
+			assertEquals(0, overwatch.getMaiorScore());
+			assertEquals(0, overwatch.getVezesJogado());
+			assertEquals(0, overwatch.getVezesZerado());
+		} catch (Exception e) {
+			fail("Nao deveria ter lancado Exception");
+		}
+	}
+
+	@Test
+	public void testContrutorWithException() {
+		try {
+			new Jogo(null, 159.99);
+			fail("Deveria ter lancado uma Exception de nome nulo");
+		} catch (Exception e) {
+			assertEquals("Nome nao pode ser nulo.", e.getMessage());
+		}
+
+		try {
+			new Jogo("", 159.99);
+			fail("Deveria ter lancado uma Exception de nome vazio");
+		} catch (Exception e) {
+			assertEquals("Nome nao pode ser vazio.", e.getMessage());
+		}
+
+		try {
+			new Jogo("Overwatch", -159.99);
+			fail("Deveria ter lancado uma Exception de preco negativo");
+		} catch (Exception e) {
+			assertEquals("Preco nao pode ser negativo.", e.getMessage());
+		}
 	}
 
 	@Test
 	public void testRegistraJogada() {
-		overwatch.registraJogada(100, false);
-		assertEquals(1, overwatch.getVezesJogado());
-		assertEquals(100, overwatch.getMaiorScore());
-		assertEquals(0, overwatch.getVezesZerado());
+		try {
+			overwatch.registraJogada(100, false);
+			assertEquals(1, overwatch.getVezesJogado());
+			assertEquals(100, overwatch.getMaiorScore());
+			assertEquals(0, overwatch.getVezesZerado());
 
-		overwatch.registraJogada(200, true);
-		assertEquals(2, overwatch.getVezesJogado());
-		assertEquals(200, overwatch.getMaiorScore());
-		assertEquals(1, overwatch.getVezesZerado());
-	}
-
-	@Test
-	public void testGetNome() {
-		assertEquals(overwatch.getNome(), "Overwatch");
-	}
-
-	@Test
-	public void testGetPreco() {
-		assertEquals(overwatch.getPreco(), 159.99, 0.05);
-	}
-
-	@Test
-	public void testGetMaiorScore() {
-		assertEquals(overwatch.getMaiorScore(), 0);
-	}
-
-	@Test
-	public void testGetVezesJogado() {
-		assertEquals(overwatch.getVezesJogado(), 0);
-	}
-
-	@Test
-	public void testGetVezesZerado() {
-		assertEquals(overwatch.getVezesZerado(), 0);
+			overwatch.registraJogada(200, true);
+			assertEquals(2, overwatch.getVezesJogado());
+			assertEquals(200, overwatch.getMaiorScore());
+			assertEquals(1, overwatch.getVezesZerado());
+		} catch (Exception e) {
+			fail("Nao deveria ter lancado Exception");
+		}
 	}
 
 	@Test
 	public void testEquals() {
-		assertEquals(overwatch, overwatch);
+		try {
+			assertEquals(overwatch, overwatch);
 
-		Jogo ow = new Jogo("Overwatch", 159.99);
-		assertEquals(overwatch, ow);
+			Jogo ow = new Jogo("Overwatch", 59.99);
+			assertEquals(ow, overwatch);
 
-		Jogo hots = new Jogo("Heroes of the Storm", 0.00);
-		assertNotEquals(overwatch, hots);
+			Jogo hots = new Jogo("Heroes of the Storm", 0.0);
+			assertNotEquals(hots, overwatch);
+		} catch (Exception e) {
+			fail("Nao deveria ter lancado Exception");
+		}
 	}
 
 	@Test
 	public void testToString() {
-		assertEquals("Nome: Overwatch\nPreco: 159.99\nMaior score: 0\nVezes jogado: 0\nVezes zerado: 0",
+		assertEquals("Jogo [nome=Overwatch, preco=159.99, maiorScore=0, vezesJogado=0, vezesZerado=0]",
 				overwatch.toString());
 
 	}

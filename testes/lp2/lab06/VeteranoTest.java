@@ -7,13 +7,117 @@ import org.junit.Test;
 
 public class VeteranoTest {
 
+	private Usuario pabllo;
+	private Jogo overwatch;
+
 	@Before
 	public void setUp() throws Exception {
+		pabllo = new Veterano("Pabllo", "pabllo.lima");
+		overwatch = new Jogo("Overwatch", 159.99);
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testConstrutor() {
+		try {
+			assertEquals("Pabllo", pabllo.getNome());
+			assertEquals("pabllo.lima", pabllo.getLogin());
+			assertTrue(pabllo.getJogosComprados().isEmpty());
+			assertEquals(0.0, pabllo.getSaldo(), 0.05);
+			assertEquals(0.2, pabllo.getDesconto(), 0.05);
+		} catch (Exception e) {
+			fail("Nao deveria ter lancado Exception");
+		}
+	}
+
+	@Test
+	public void testConstrutorWithException() {
+		try {
+			new Veterano(null, "pabllo.lima");
+			fail("Deveria ter lancado uma Exception de nome nulo");
+		} catch (Exception e) {
+			assertEquals("Nome nao pode ser nulo.", e.getMessage());
+		}
+
+		try {
+			new Veterano("", "pabllo.lima");
+			fail("Deveria ter lancado uma Exception de nome vazio");
+		} catch (Exception e) {
+			assertEquals("Nome nao pode ser vazio.", e.getMessage());
+		}
+
+		try {
+			new Veterano("Pabllo", null);
+			fail("Deveria ter lancado uma Exception de login nulo");
+		} catch (Exception e) {
+			assertEquals("Login nao pode ser nulo.", e.getMessage());
+		}
+
+		try {
+			new Veterano("Pabllo", "");
+			fail("Deveria ter lancado uma Exception de login vazio");
+		} catch (Exception e) {
+			assertEquals("Login nao pode ser vazio.", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testCompraJogoSemSaldo() {
+		try {
+			pabllo.compraJogo(overwatch);
+			fail("Deveria ter lancado uma Exception de saldo insuficiente");
+		} catch (Exception e) {
+			assertEquals("Saldo insuficiente para comprar o jogo.", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testAdicionaDinheiroInvalido() {
+		try {
+			pabllo.adicionaDinheiro(0);
+			fail("Deveria ter lancado uma Exception de valor igual a zero.");
+		} catch (Exception e) {
+			assertEquals("Valor nao pode ser igual a zero.", e.getMessage());
+		}
+
+		try {
+			pabllo.adicionaDinheiro(-100);
+			fail("Deveria ter lancado uma Exception de valor negativo");
+		} catch (Exception e) {
+			assertEquals("Valor nao pode ser negativo.", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testCompraJogoComSaldo() {
+		try {
+			assertEquals(true, pabllo.adicionaDinheiro(200));
+			assertEquals(200, pabllo.getSaldo(), 0.05);
+			assertEquals(true, pabllo.compraJogo(overwatch));
+			assertEquals(72.008, pabllo.getSaldo(), 0.05);
+			assertTrue(pabllo.getJogosComprados().contains(overwatch));
+		} catch (Exception e) {
+			fail("Nao deveria ter lancado Exception");
+		}
+	}
+
+	@Test
+	public void testEquals() {
+		try {
+			assertEquals(pabllo, pabllo);
+
+			Usuario pablloXara = new Veterano("Pabllo", "pabllo.alves");
+			assertNotEquals(pabllo, pablloXara);
+
+			Usuario fabiana = new Veterano("Fabiana", "fabiana.alves");
+			assertNotEquals(pabllo, fabiana);
+		} catch (Exception e) {
+			fail("Nao deveria ter lancado Exception");
+		}
+	}
+
+	@Test
+	public void testToString() {
+		assertEquals("Usuario [nome=Pabllo, login=pabllo.lima, jogosComprados=[], saldo=0.0]", pabllo.toString());
 	}
 
 }
