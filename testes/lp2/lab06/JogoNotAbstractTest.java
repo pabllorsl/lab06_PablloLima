@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class JogoTest {
+public class JogoNotAbstractTest {
 
 	private Jogo overwatch;
 
 	@Before
 	public void setUp() throws Exception {
-		overwatch = new Jogo("Overwatch", 159.99);
+		overwatch = new JogoNotAbstract("Overwatch", 159.99);
 	}
 
 	@Test
@@ -30,21 +30,21 @@ public class JogoTest {
 	@Test
 	public void testContrutorWithException() {
 		try {
-			new Jogo(null, 159.99);
+			new JogoNotAbstract(null, 159.99);
 			fail("Deveria ter lancado uma Exception de nome nulo");
 		} catch (Exception e) {
 			assertEquals("Nome nao pode ser nulo.", e.getMessage());
 		}
 
 		try {
-			new Jogo("", 159.99);
+			new JogoNotAbstract("", 159.99);
 			fail("Deveria ter lancado uma Exception de nome vazio");
 		} catch (Exception e) {
 			assertEquals("Nome nao pode ser vazio.", e.getMessage());
 		}
 
 		try {
-			new Jogo("Overwatch", -159.99);
+			new JogoNotAbstract("Overwatch", -159.99);
 			fail("Deveria ter lancado uma Exception de preco negativo");
 		} catch (Exception e) {
 			assertEquals("Preco nao pode ser negativo.", e.getMessage());
@@ -73,10 +73,10 @@ public class JogoTest {
 		try {
 			assertEquals(overwatch, overwatch);
 
-			Jogo ow = new Jogo("Overwatch", 59.99);
+			Jogo ow = new JogoNotAbstract("Overwatch", 59.99);
 			assertEquals(ow, overwatch);
 
-			Jogo hots = new Jogo("Heroes of the Storm", 0.0);
+			Jogo hots = new JogoNotAbstract("Heroes of the Storm", 0.0);
 			assertNotEquals(hots, overwatch);
 		} catch (Exception e) {
 			fail("Nao deveria ter lancado Exception");

@@ -5,15 +5,15 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UsuarioTest {
+public class UsuarioNotAbstractTest {
 
 	private Usuario pabllo;
 	private Jogo overwatch;
 
 	@Before
 	public void setUp() throws Exception {
-		pabllo = new Usuario("Pabllo", "pabllo.lima");
-		overwatch = new Jogo("Overwatch", 159.99);
+		pabllo = new UsuarioNotAbstract("Pabllo", "pabllo.lima");
+		overwatch = new JogoNotAbstract("Overwatch", 159.99);
 	}
 
 	@Test
@@ -24,6 +24,8 @@ public class UsuarioTest {
 			assertTrue(pabllo.getJogosComprados().isEmpty());
 			assertEquals(0.0, pabllo.getSaldo(), 0.05);
 			assertEquals(0.0, pabllo.getDesconto(), 0.05);
+			pabllo.setDesconto(0.3);
+			assertEquals(0.3, pabllo.getDesconto(), 0.05);
 		} catch (Exception e) {
 			fail("Nao deveria ter lancado Exception");
 		}
@@ -32,28 +34,28 @@ public class UsuarioTest {
 	@Test
 	public void testConstrutorWithException() {
 		try {
-			new Usuario(null, "pabllo.lima");
+			new UsuarioNotAbstract(null, "pabllo.lima");
 			fail("Deveria ter lancado uma Exception de nome nulo");
 		} catch (Exception e) {
 			assertEquals("Nome nao pode ser nulo.", e.getMessage());
 		}
 
 		try {
-			new Usuario("", "pabllo.lima");
+			new UsuarioNotAbstract("", "pabllo.lima");
 			fail("Deveria ter lancado uma Exception de nome vazio");
 		} catch (Exception e) {
 			assertEquals("Nome nao pode ser vazio.", e.getMessage());
 		}
 
 		try {
-			new Usuario("Pabllo", null);
+			new UsuarioNotAbstract("Pabllo", null);
 			fail("Deveria ter lancado uma Exception de login nulo");
 		} catch (Exception e) {
 			assertEquals("Login nao pode ser nulo.", e.getMessage());
 		}
 
 		try {
-			new Usuario("Pabllo", "");
+			new UsuarioNotAbstract("Pabllo", "");
 			fail("Deveria ter lancado uma Exception de login vazio");
 		} catch (Exception e) {
 			assertEquals("Login nao pode ser vazio.", e.getMessage());
@@ -105,10 +107,10 @@ public class UsuarioTest {
 		try {
 			assertEquals(pabllo, pabllo);
 
-			Usuario pablloXara = new Usuario("Pabllo", "pabllo.alves");
+			Usuario pablloXara = new UsuarioNotAbstract("Pabllo", "pabllo.alves");
 			assertNotEquals(pabllo, pablloXara);
 
-			Usuario fabiana = new Usuario("Fabiana", "fabiana.alves");
+			Usuario fabiana = new UsuarioNotAbstract("Fabiana", "fabiana.alves");
 			assertNotEquals(pabllo, fabiana);
 		} catch (Exception e) {
 			fail("Nao deveria ter lancado Exception");
