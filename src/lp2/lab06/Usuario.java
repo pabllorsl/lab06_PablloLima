@@ -10,7 +10,8 @@ public abstract class Usuario {
 	private String login;
 	private HashSet<Jogo> jogosComprados;
 	private double saldo;
-	private double desconto;
+	protected double desconto;
+	protected int x2p;
 
 	public Usuario(String nome, String login) throws Exception {
 		VerificadorExceptions.verificaStringNulaVazia(nome, "Nome");
@@ -68,8 +69,12 @@ public abstract class Usuario {
 		return desconto;
 	}
 
-	public void setDesconto(double desconto) {
-		this.desconto = desconto;
+	public int getX2p() {
+		return x2p;
+	}
+
+	public void setX2p(int x2p) {
+		this.x2p = x2p;
 	}
 
 	@Override
