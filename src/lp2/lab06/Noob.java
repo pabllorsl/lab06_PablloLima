@@ -4,7 +4,7 @@ public class Noob extends Usuario {
 
 	public Noob(String nome, String login) throws Exception {
 		super(nome, login);
-		desconto = 0.1;
+		super.setDesconto(0.1);
 	}
 
 	@Override

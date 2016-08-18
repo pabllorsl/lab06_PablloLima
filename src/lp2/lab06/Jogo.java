@@ -2,7 +2,7 @@ package lp2.lab06;
 
 import lp2.lab06.exceptions.VerificadorExceptions;
 
-public class Jogo {
+public abstract class Jogo {
 
 	private String nome;
 	private double preco;
@@ -38,16 +38,8 @@ public class Jogo {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public double getPreco() {
 		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
 	}
 
 	public int getMaiorScore() {

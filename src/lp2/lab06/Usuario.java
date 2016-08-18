@@ -4,13 +4,13 @@ import java.util.HashSet;
 
 import lp2.lab06.exceptions.VerificadorExceptions;
 
-public class Usuario {
+public abstract class Usuario {
 
 	private String nome;
 	private String login;
 	private HashSet<Jogo> jogosComprados;
 	private double saldo;
-	protected double desconto;
+	private double desconto;
 
 	public Usuario(String nome, String login) throws Exception {
 		VerificadorExceptions.verificaStringNulaVazia(nome, "Nome");
@@ -35,12 +35,12 @@ public class Usuario {
 		return true;
 	}
 
-	public boolean adicionaJogo(Jogo jogo) {
+	private boolean adicionaJogo(Jogo jogo) {
 		jogosComprados.add(jogo);
 		return true;
 	}
 
-	public void atualizaSaldo(double saldo, double precoJogo) {
+	private void atualizaSaldo(double saldo, double precoJogo) {
 		this.setSaldo(saldo - (precoJogo - (precoJogo * this.desconto)));
 	}
 
@@ -48,16 +48,8 @@ public class Usuario {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getLogin() {
 		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public HashSet<Jogo> getJogosComprados() {
@@ -68,7 +60,7 @@ public class Usuario {
 		return saldo;
 	}
 
-	public void setSaldo(double valor) {
+	private void setSaldo(double valor) {
 		this.saldo = valor;
 	}
 
