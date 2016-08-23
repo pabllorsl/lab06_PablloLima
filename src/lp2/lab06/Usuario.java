@@ -26,8 +26,17 @@ public abstract class Usuario {
 	public boolean compraJogo(Jogo jogo) throws Exception {
 		VerificadorExceptions.verificaSaldoInsuficiente(this.getSaldo(), jogo.getPreco());
 		atualizaSaldo(this.getSaldo(), jogo.getPreco());
+		contemJogo(jogo);
 		adicionaJogo(jogo);
 		return true;
+	}
+
+	public boolean contemJogo(Jogo jogo) throws Exception {
+		if (jogosComprados.contains(jogo)) {
+			throw new Exception("O jogo ja foi comprado.");
+		} else {
+			return true;
+		}
 	}
 
 	public boolean adicionaDinheiro(double valor) throws Exception {
@@ -43,6 +52,20 @@ public abstract class Usuario {
 
 	private void atualizaSaldo(double saldo, double precoJogo) {
 		this.setSaldo(saldo - (precoJogo - (precoJogo * this.desconto)));
+	}
+
+	public boolean registraJogada(String nomeDoJogo, int score, boolean zerou) throws Exception {
+		procuraJogo(nomeDoJogo).registraJogada(score, zerou);
+		return true;
+	}
+
+	public Jogo procuraJogo(String nome) throws Exception {
+		for (Jogo jogo : jogosComprados) {
+			if (jogo.getNome().equalsIgnoreCase(nome)) {
+				return jogo;
+			}
+		}
+		throw new Exception("Jogo nao encontrado.");
 	}
 
 	public String getNome() {

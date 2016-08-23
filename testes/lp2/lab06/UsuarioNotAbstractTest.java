@@ -24,8 +24,8 @@ public class UsuarioNotAbstractTest {
 			assertTrue(pabllo.getJogosComprados().isEmpty());
 			assertEquals(0.0, pabllo.getSaldo(), 0.05);
 			assertEquals(0.0, pabllo.getDesconto(), 0.05);
-			pabllo.setDesconto(0.3);
-			assertEquals(0.3, pabllo.getDesconto(), 0.05);
+//			pabllo.setDesconto(0.3);
+//			assertEquals(0.3, pabllo.getDesconto(), 0.05);
 		} catch (Exception e) {
 			fail("Nao deveria ter lancado Exception");
 		}
