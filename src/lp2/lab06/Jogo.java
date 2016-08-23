@@ -20,7 +20,7 @@ public abstract class Jogo {
 		vezesZerado = 0;
 	}
 
-	public boolean registraJogada(int score, boolean jogoZerado) {
+	public int registraJogada(int score, boolean jogoZerado) throws Exception {
 		vezesJogado += 1;
 
 		if (score > maiorScore) {
@@ -31,7 +31,7 @@ public abstract class Jogo {
 			vezesZerado += 1;
 		}
 
-		return true;
+		return 0;
 	}
 
 	public String getNome() {

@@ -6,4 +6,21 @@ public class Luta extends Jogo {
 		super(nome, preco);
 	}
 
+	@Override
+	public int registraJogada(int score, boolean jogoZerado) throws Exception {
+		int x2pExtra = 0;
+
+		if (score < 0 || score > 100000) {
+			throw new Exception("Score deve ser entre 0 e 100000 (inclusivos).");
+		}
+
+		if (score > super.getMaiorScore()) {
+			x2pExtra = score / 1000;
+		}
+
+		super.registraJogada(score, jogoZerado);
+
+		return x2pExtra;
+	}
+
 }

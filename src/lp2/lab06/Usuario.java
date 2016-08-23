@@ -12,6 +12,7 @@ public abstract class Usuario {
 	private double saldo;
 	protected double desconto;
 	protected int x2p;
+	protected int fator;
 
 	public Usuario(String nome, String login) throws Exception {
 		VerificadorExceptions.verificaStringNulaVazia(nome, "Nome");
@@ -21,6 +22,7 @@ public abstract class Usuario {
 		this.jogosComprados = new HashSet<Jogo>();
 		this.saldo = 0.0;
 		this.desconto = 0.0;
+		this.fator = 0;
 	}
 
 	public boolean compraJogo(Jogo jogo) throws Exception {
@@ -28,6 +30,7 @@ public abstract class Usuario {
 		atualizaSaldo(this.getSaldo(), jogo.getPreco());
 		contemJogo(jogo);
 		adicionaJogo(jogo);
+		ganhaX2p(jogo, fator);
 		return true;
 	}
 
@@ -66,6 +69,14 @@ public abstract class Usuario {
 			}
 		}
 		throw new Exception("Jogo nao encontrado.");
+	}
+
+	private void ganhaX2p(Jogo jogo, int fator) {
+		setX2p(getX2p() + fator * (int) jogo.getPreco());
+	}
+
+	public void ganhaX2pExtra(Jogo jogo) {
+
 	}
 
 	public String getNome() {

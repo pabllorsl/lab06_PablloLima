@@ -6,12 +6,12 @@ public class Noob extends Usuario {
 		super(nome, login);
 		this.desconto = 0.1;
 		this.x2p = 0;
+		this.fator = 10;
 	}
 
 	@Override
 	public boolean compraJogo(Jogo jogo) throws Exception {
 		if (super.compraJogo(jogo)) {
-			super.setX2p(super.getX2p() + 10 * (int) jogo.getPreco());
 			return true;
 		} else {
 			return false;

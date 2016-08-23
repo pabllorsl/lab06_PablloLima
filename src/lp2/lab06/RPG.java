@@ -6,4 +6,9 @@ public class RPG extends Jogo {
 		super(nome, preco);
 	}
 
+	@Override
+	public int registraJogada(int score, boolean jogoZerado) throws Exception {
+		return super.registraJogada(score, jogoZerado) + 10;
+	}
+
 }
